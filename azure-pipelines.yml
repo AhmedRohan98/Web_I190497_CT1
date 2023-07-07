@@ -4,10 +4,28 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- none
 
 pool:
   vmImage: ubuntu-latest
+
+stages:
+- stage: Deploy
+- jobs:
+  - deployment: Test
+    environment: Test
+    strategy:
+     - rollOnce:
+       - deploy: 
+         - steps:
+           - checkout: self
+           - script:
+             - echo "Hello world!!!"
+     
+
+
+
+
 
 steps:
 - script: echo Hello, world!
